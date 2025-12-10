@@ -34,4 +34,10 @@ program
   .option('-y, --autonomous', 'Use Cline autonomous mode')
   .action(generateCommand);
 
+program
+  .command('validate')
+  .description('Validate generated configurations')
+  .option('-p, --path <path>', 'Project path', '.')
+  .action(validateCommand);
+
 program.parse(process.argv);
