@@ -3,6 +3,24 @@ import * as path from 'path';
 import chalk from 'chalk';
 import { clineClient } from '../cline/cline.js';
 
+interface DevOpsConfig {
+  name: string;
+  version: string;
+  environments: string[];
+  cicd: {
+    provider: 'github-actions' | 'gitlab-ci' | 'jenkins';
+    enabled: boolean;
+  };
+  docker: {
+    enabled: boolean;
+    registry?: string;
+  };
+  kubernetes: {
+    enabled: boolean;
+    namespace?: string;
+  };
+}
+
 export async function initCommand(options: { path: string; interactive?: boolean }) {
   const projectPath = path.resolve(options.path);
   const configPath = path.join(projectPath, 'devops-gen.config.yml');
@@ -50,7 +68,7 @@ export async function initCommand(options: { path: string; interactive?: boolean
   console.log('  3. Run: devops-gen generate --autonomous');
 }
 
-function getDefaultConfig(projectPath: string): any {
+function getDefaultConfig(projectPath: string): DevOpsConfig {
   const packageJsonPath = path.join(projectPath, 'package.json');
   let name = 'my-app';
 
