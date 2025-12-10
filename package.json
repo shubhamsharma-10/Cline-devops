@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@types/node": "^24.10.2",
-    "execa": "^9.6.1"
+    "execa": "^9.6.1",
+    "commander": "^14.0.2"
   }
 }
