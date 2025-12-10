@@ -11,7 +11,8 @@ export async function generateGitHubActions(
     projectPath: string,
     analysis: string,
     options: { autonomous: boolean },
-    generatedFiles: string[]
+    generatedFiles: string[],
+    errors: string[]
 ) {
     const spinner = ora('Generating GitHub Actions workflows...').start();
 
@@ -27,8 +28,7 @@ export async function generateGitHubActions(
         // Create .github/workflows directory
         const workflowsDir = path.join(projectPath, '.github', 'workflows');
         fs.mkdirSync(workflowsDir, { recursive: true });
-
-        // this parse Cline's response and extract YAML files
+        
         const files = extractYamlFiles(response.output);
 
         for (const [filename, content] of Object.entries(files)) {
@@ -40,6 +40,8 @@ export async function generateGitHubActions(
 
         spinner.succeed('GitHub Actions workflows generated');
     } else {
+        errors.push('Failed to generate GitHub Actions: ' + response.output);
+        spinner.fail('Failed to generate GitHub Actions');
         console.error(chalk.red(response.output));
     }
 }
