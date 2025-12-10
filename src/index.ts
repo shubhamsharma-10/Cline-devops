@@ -26,4 +26,12 @@ program
   .option('--deep', 'Deep analysis using Cline AI')
   .action(analyzeCommand);
 
+program
+  .command('generate')
+  .description('Generate DevOps configurations')
+  .option('-p, --path <path>', 'Project path', '.')
+  .option('-t, --type <type>', 'Config type: all|github-actions|docker|kubernetes', 'all')
+  .option('-y, --autonomous', 'Use Cline autonomous mode')
+  .action(generateCommand);
+
 program.parse(process.argv);
