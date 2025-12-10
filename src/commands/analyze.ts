@@ -64,3 +64,72 @@ export async function analyzeCommand(options: { path: string; deep?: boolean }) 
     process.exit(1);
   }
 }
+
+async function quickAnalyze(projectPath: string): Promise<ProjectAnalysis> {
+  const analysis: ProjectAnalysis = {
+    languages: [],
+    frameworks: [],
+    packageManager: 'unknown',
+    databases: [],
+    hasDocker: false,
+    hasCI: false,
+  };
+
+  // Detect package.json (Node.js)
+  const packageJsonPath = path.join(projectPath, 'package.json');
+  if (fs.existsSync(packageJsonPath)) {
+    analysis.languages.push('JavaScript/TypeScript');
+    analysis.packageManager = fs.existsSync(path.join(projectPath, 'yarn.lock'))
+      ? 'yarn'
+      : fs.existsSync(path.join(projectPath, 'pnpm-lock.yaml'))
+        ? 'pnpm'
+        : 'npm';
+
+    const pkg = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
+    const deps = { ...pkg.dependencies, ...pkg.devDependencies };
+
+    // Detect frameworks
+    if (deps['next']) analysis.frameworks.push('Next.js');
+    if (deps['react']) analysis.frameworks.push('React');
+    if (deps['express']) analysis.frameworks.push('Express');
+    if (deps['nestjs'] || deps['@nestjs/core']) analysis.frameworks.push('NestJS');
+    if (deps['vue']) analysis.frameworks.push('Vue.js');
+
+    // Get scripts
+    analysis.testCommand = pkg.scripts?.test;
+    analysis.buildCommand = pkg.scripts?.build;
+    analysis.startCommand = pkg.scripts?.start;
+  }
+
+  // Detect requirements.txt (Python)
+  const requirementsPath = path.join(projectPath, 'requirements.txt');
+  const pyprojectPath = path.join(projectPath, 'pyproject.toml');
+  if (fs.existsSync(requirementsPath) || fs.existsSync(pyprojectPath)) {
+    analysis.languages.push('Python');
+    analysis.packageManager = fs.existsSync(pyprojectPath) ? 'poetry' : 'pip';
+
+    if (fs.existsSync(requirementsPath)) {
+      const requirements = fs.readFileSync(requirementsPath, 'utf-8');
+      if (requirements.includes('django')) analysis.frameworks.push('Django');
+      if (requirements.includes('fastapi')) analysis.frameworks.push('FastAPI');
+      if (requirements.includes('flask')) analysis.frameworks.push('Flask');
+    }
+  }
+
+  // Detect Go
+  if (fs.existsSync(path.join(projectPath, 'go.mod'))) {
+    analysis.languages.push('Go');
+    analysis.packageManager = 'go modules';
+  }
+
+  // Detect Docker
+  analysis.hasDocker = fs.existsSync(path.join(projectPath, 'Dockerfile')) ||
+    fs.existsSync(path.join(projectPath, 'docker-compose.yml'));
+
+  // Detect CI/CD
+  analysis.hasCI = fs.existsSync(path.join(projectPath, '.github/workflows')) ||
+    fs.existsSync(path.join(projectPath, '.gitlab-ci.yml')) ||
+    fs.existsSync(path.join(projectPath, 'Jenkinsfile'));
+
+  return analysis;
+}
