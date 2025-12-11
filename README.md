@@ -67,7 +67,7 @@ Setting up DevOps infrastructure is:
 ## How It Works
 
 <details>
-<summary><b>🏗️ System Architecture (Click to expand)</b></summary>
+<summary><b> System Architecture (Click to expand)</b></summary>
 
 <br>
 
@@ -93,7 +93,7 @@ The CLI follows a modular architecture with clear separation of concerns:
 This diagram shows the complete workflow from project input to generated DevOps files:
 
 <p align="center">
-  <img src="./assests/image.png" alt="System Flow Diagram" width="600"/>
+  <img src="./assests/systemflow.png" alt="System Flow Diagram" width="600"/>
 </p>
 
 **Flow Steps:**
