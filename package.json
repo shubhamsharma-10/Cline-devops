@@ -1,7 +1,7 @@
 {
   "name": "cline-devops",
   "version": "1.0.0",
-  "description": "",
+  "description": "Generate complete DevOps configurations files using cline-cli",
   "main": "index.js",
   "scripts": {
     "build": "npx tsc",
