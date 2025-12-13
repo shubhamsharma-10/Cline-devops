@@ -67,15 +67,12 @@ Setting up DevOps infrastructure is:
 
 ## How It Works
 
-<details>
-<summary><b> System Architecture (Click to expand)</b></summary>
-
-<br>
+### System Architecture
 
 The CLI follows a modular architecture with clear separation of concerns:
 
 <p align="center">
-  <img src="./assests/architecture.png" alt="Architecture Diagram" width="600"/>
+  <img src="./assets/architecture.png" alt="Architecture Diagram" width="600"/>
 </p>
 
 **Components:**
@@ -84,17 +81,14 @@ The CLI follows a modular architecture with clear separation of concerns:
 - **Generators**: Specialized modules for GitHub Actions, Docker, and Kubernetes
 - **Cline Integration**: AI engine wrapper for intelligent generation
 
-</details>
+---
 
-<details>
-<summary><b> System Flow (Click to expand)</b></summary>
-
-<br>
+### System Flow
 
 This diagram shows the complete workflow from project input to generated DevOps files:
 
 <p align="center">
-  <img src="./assests/systemflow.png" alt="System Flow Diagram" width="600"/>
+  <img src="./assets/systemflow.png" alt="System Flow Diagram" width="600"/>
 </p>
 
 **Flow Steps:**
@@ -102,8 +96,6 @@ This diagram shows the complete workflow from project input to generated DevOps 
 2. **Analyze** → Detect tech stack (static + AI)
 3. **Generate** → AI creates CI/CD, Docker, K8s files
 4. **Validate** → Check syntax and best practices
-
-</details>
 
 ---
 
@@ -116,7 +108,7 @@ This diagram shows the complete workflow from project input to generated DevOps 
 
 ### Installation
 
-**Option 1: Install from npm (Recommended)**
+**Option 1: Install from npm**
 ```bash
 npm install -g cline-devops
 ```
@@ -383,6 +375,21 @@ const response = await execa('cline', [prompt, '-o', '--yolo', '-m', 'act'], {
 
 ---
 
+## Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| `cline: command not found` | Install Cline CLI: `npm install -g @anthropics/cline` |
+| `Error: Cline CLI not authenticated` | Run `cline auth` to authenticate |
+| `Command timed out` | Cline AI takes time (~2-5 mins). Increase timeout or wait |
+| `Permission denied` | Run with `sudo npm install -g cline-devops` |
+| `YAML syntax error` | Run `cline-devops validate` to check generated files |
+| `No analysis found` | Run `cline-devops analyze` before `generate` |
+
+**Still having issues?** [Open an issue](https://github.com/shubhamsharma-10/Cline-devops/issues)
+
+---
+
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
@@ -404,6 +411,16 @@ MIT License - see [LICENSE](LICENSE) for details.
 ## 👨‍💻 Author
 
 Built with ❤️ for the **WeMakeDevs Hackathon 2025**
+
+---
+
+## 🙏 Acknowledgements
+
+- [Cline CLI](https://cline.bot/) - The AI coding assistant powering this tool
+- [WeMakeDevs](https://wemakedevs.org/) - For organizing the hackathon
+- [Commander.js](https://github.com/tj/commander.js) - CLI framework
+- [Chalk](https://github.com/chalk/chalk) - Terminal styling
+- [Ora](https://github.com/sindresorhus/ora) - Elegant terminal spinners
 
 ---
 
