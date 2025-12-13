@@ -1,20 +1,43 @@
 {
   "name": "cline-devops",
   "version": "1.0.0",
-  "description": "Generate complete DevOps configurations files using cline-cli",
-  "main": "index.js",
+  "description": "AI-powered DevOps pipeline generator using Cline CLI",
+  "main": "dist/index.js",
   "scripts": {
     "build": "npx tsc",
     "start": "node dist/index.js",
-    "dev": "npm run build && npm run start"
+    "dev": "npm run build && npm run start",
+    "prepublishOnly": "npm run build"
   },
   "bin": {
     "cline-devops": "./dist/index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "devops",
+    "cline",
+    "cli",
+    "docker",
+    "kubernetes",
+    "github-actions",
+    "cicd",
+    "automation"
+  ],
+  "author": "Shubham Sharma",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shubhamsharma-10/Cline-devops.git"
+  },
+  "homepage": "https://github.com/shubhamsharma-10/Cline-devops#readme",
   "type": "module",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "devDependencies": {
     "typescript": "^5.9.3"
   },

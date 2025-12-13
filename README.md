@@ -1,4 +1,5 @@
 <p align="center">
+  <a href="https://www.npmjs.com/package/cline-devops"><img src="https://img.shields.io/npm/v/cline-devops.svg?style=for-the-badge&logo=npm" alt="npm version"/></a>
   <img src="https://img.shields.io/badge/Cline_CLI-Powered-blue?style=for-the-badge&logo=terminal" alt="Cline Powered"/>
   <img src="https://img.shields.io/badge/Node.js-18+-green?style=for-the-badge&logo=node.js" alt="Node.js"/>
   <img src="https://img.shields.io/badge/TypeScript-5.0+-blue?style=for-the-badge&logo=typescript" alt="TypeScript"/>
@@ -115,6 +116,12 @@ This diagram shows the complete workflow from project input to generated DevOps 
 
 ### Installation
 
+**Option 1: Install from npm (Recommended)**
+```bash
+npm install -g cline-devops
+```
+
+**Option 2: Build from source**
 ```bash
 # Clone the repository
 git clone https://github.com/shubhamsharma-10/Cline-devops
@@ -126,7 +133,7 @@ npm install
 # Build the project
 npm run build
 
-# Link globally (optional - makes 'cline-devops' command available)
+# Link globally
 npm link
 ```
 
